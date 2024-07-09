@@ -3,7 +3,8 @@ from django.db import models
 
 # Create your models here.
 class Schedool(models.Model):
-    datetime = models.DateTimeField(null=False)
+    id = models.BigAutoField()
+    datetime = models.DateTimeField()
     title = models.CharField(max_length=100, null=False)
     content = models.TextField(max_length=500)
     done = models.BooleanField(default=False, null=False)
@@ -11,8 +12,9 @@ class Schedool(models.Model):
 
 class Routine(models.Model):
     id = models.BigAutoField()
-    routine_rule = models.CharField()
-    start_time = models.DateTimeField()
+    schedool = models.OneToOneField(Schedool, on_delete=models.DO_NOTHING)
+    routine_rule = models.CharField(null=False)
+    start_time = models.DateTimeField(null=False)
     end_time = models.DateTimeField()
 
 
